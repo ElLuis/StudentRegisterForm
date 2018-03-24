@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">StudentStaff</string>
+    <string name="title_activity_staff_login">Sign in</string>
+
+    <string-array name="staffEmails">
+        <item>vvaithi3@my.centennialcollege.ca</item>
+        <item>fishii@my.centennialcollege.ca</item>
+        <item>dstanesc@my.centennialcollege.ca</item>
+        <item>test</item>
+    </string-array>
+    <string-array name="staffPasswords">
+        <item>vvaithi3</item>
+        <item>fishii</item>
+        <item>dstanesc</item>
+        <item>test1</item>
+    </string-array>
+
+</resources>
