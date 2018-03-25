@@ -32,6 +32,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void submitBtn_OnClick(View view) {
         //create instance
+        String _fname = fName.getText().toString();
+        String _lname = lName.getText().toString();
+        String _dob = dob.getText().toString();
+        String _username = username.getText().toString();
+        String _password = password.getText().toString();
+        //add student after registering;
+        Student student = new Student(_fname,_lname,_dob,_username,_password);
+        student.AddStudent(student);
     }
 
     public void cancelBtn_OnClick(View view) {
