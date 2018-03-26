@@ -2,6 +2,7 @@ package com.centennial.elluis.studentstaff;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,7 +18,6 @@ import java.util.Objects;
 
 public class StudentLoginActivity extends AppCompatActivity {
 
-    private static final int REGISTER_REQUEST = 1001;
     private EditText usernameET;
     private EditText passwordET;
     private Button loginBtn;
@@ -31,6 +31,8 @@ public class StudentLoginActivity extends AppCompatActivity {
     private String username;
     private String password;
 
+    private DBAdapter db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,8 @@ public class StudentLoginActivity extends AppCompatActivity {
         usernameET = findViewById(R.id.usernameET1);
         passwordET = findViewById(R.id.passwordET1);
         loginBtn = findViewById(R.id.loginBtn);
+
+        db = new DBAdapter(this);
 
 
         //Find passwords and usernames
@@ -85,33 +89,14 @@ public class StudentLoginActivity extends AppCompatActivity {
     //validate credentials
     public boolean validate(String username, String password)
     {
-        for(int i = 0; i < studentUsernames.size();i++)
-        {
-            if (studentUsernames.contains(username) && studentPasswords.contains(password))
-                return true;
-        }
-        return false;
+        db.open();
+        Cursor c = db.validateStudentPassword(Long.parseLong(username));
+        return c.getString(0).equals(password);
     }
 
     public void NotRegistered_OnClick(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
-        startActivityForResult(intent,REGISTER_REQUEST);
+        startActivity(intent);
     }
 
-    //receive registration credentials
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK && requestCode == REGISTER_REQUEST)
-        {
-            firstname = data.getStringExtra("fname_key");
-            lastname = data.getStringExtra("lname_key");
-            city = data.getStringExtra("city_key");
-            username = data.getStringExtra("username_key");
-            password = data.getStringExtra("password_key");
-
-            studentUsernames.add(username);
-            studentPasswords.add(password);
-        }
     }
-}

@@ -14,6 +14,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText city;
     private EditText username;
     private EditText password;
+    private DBAdapter db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +24,12 @@ public class RegisterActivity extends AppCompatActivity {
         //initializing EditTexts
         fName = findViewById(R.id.firstNameET);
         lName = findViewById(R.id.lastNameET);
-        city = findViewById(R.id.dobET);
+        city = findViewById(R.id.cityET);
         username = findViewById(R.id.usernameET);
         password = findViewById(R.id.passwordET);
 
+        //initialize Database adapter
+        db = new DBAdapter(this);
 
     }
 
@@ -38,17 +41,14 @@ public class RegisterActivity extends AppCompatActivity {
         String _username = username.getText().toString();
         String _password = password.getText().toString();
 
-        //add student after registering;
+        //insert student after registering;
+        db.open();
+        db.insertStudent(_username,_fname,_lname,_city,_password);
+        db.close();
 
-        //Go to login activity after registering
-        //pass result back to login
-        getIntent().putExtra("fname_key",_fname);
-        getIntent().putExtra("lname_key",_lname);
-        getIntent().putExtra("dob_key",_city);
-        getIntent().putExtra("username_key",_username);
-        getIntent().putExtra("password_key",_password);
-        setResult(RESULT_OK,getIntent());
-        finish();
+        Intent intent = new Intent(this, StudentLoginActivity.class);
+        startActivity(intent);
+        //pass username to Student page
     }
 
     public void cancelBtn_OnClick(View view) {
