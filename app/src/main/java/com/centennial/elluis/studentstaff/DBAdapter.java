@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.TextView;
 
 
 public class DBAdapter {
@@ -14,7 +15,8 @@ public class DBAdapter {
     static final String KEY_FIRST_NAME = "firstName";
     static final String KEY_LAST_NAME = "lastName";
     static final String KEY_CITY = "city";
-    static final String KEY_USERNAME = "username";
+    static final String PK_USERNAME = "username";
+    static final String FK_PROGRAM_CODE = "programCode";
     static final String KEY_PASSWORD = "password";
 
     //Program table fields
@@ -25,8 +27,8 @@ public class DBAdapter {
     static final String KEY_SEMESTER = "semester";
 
     //Payment table fields
-    static final String FK_STUDENT_ID = "studentID";
-    static final String FK_PROGRAM_CODE = "programCode";
+    static final String FK_STUDENT_ID$ = "studentID";
+    static final String FK_PROGRAM_CODE$ = "programCode";
     static final String KEY_TOTAL_AMOUNT_ = "totalAmount";
     static final String KEY_AMOUNT_PAID = "amountPaid";
     static final String KEY_BALANCE = "balance";
@@ -41,18 +43,29 @@ public class DBAdapter {
 
     //students query
     static final String DATABASE_CREATE_STUDENTS =
-            "create table students (username integer primary key not null, " //username is int
+            "create table students (username integer primary key not null, programCode integer foreign key references programs(programCode), " //username is int
                     + "firstName text not null, lastName text not null, city text, password text not null);";
 
     //programs query
     static final String DATABASE_CREATE_PROGRAMS =
             "create table programs (programCode integer primary key, programName text not null, tuitionFee integer not null, duration integer not null," +
                     "semester integer);";
+    //programs values
+    static final String CREATE_PROGRAM_1 =
+            "INSERT INTO programs (programCode, programName, tuitionFee, duration, semester)" +
+                    "VALUES (3419, 'Software Engineering Technology', 25000,3,9);";
+    static final String CREATE_PROGRAM_2 =
+            "INSERT INTO programs (programCode, programName, tuitionFee, duration, semester)" +
+                    "VALUES (3408, 'Software Engineering Technician', 24000,3,9);";
+    static final String CREATE_PROGRAM_3 =
+            "INSERT INTO programs (programCode, programName, tuitionFee, duration, semester)" +
+                    "VALUES (3506, 'Medical Laboratory Technician', 20000,2,6);";
 
     //payments query
     static final String DATABASE_CREATE_PAYMENTS =
-            "create table payments (studentID integer foreign key references students(username), programCode integer foreign key references programs(programCode)," +
+            "create table payments (programCode integer foreign key references programs(programCode), studentID integer foreign key references students(username)," +
                     "totalAmount integer, amountPaid integer, balance integer,status text default 'In-Process'); ";
+
     final Context context;
     DatabaseHelper DBHelper;
     SQLiteDatabase db;
@@ -72,6 +85,12 @@ public class DBAdapter {
         {
             try {
                 db.execSQL(DATABASE_CREATE_STUDENTS);
+                db.execSQL(DATABASE_CREATE_PROGRAMS);
+                db.execSQL(DATABASE_CREATE_PAYMENTS);
+                //insert programs
+                db.execSQL(CREATE_PROGRAM_1);
+                db.execSQL(CREATE_PROGRAM_2);
+                db.execSQL(CREATE_PROGRAM_3);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -82,7 +101,9 @@ public class DBAdapter {
         {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS contacts");
+            db.execSQL("DROP TABLE IF EXISTS students");
+            db.execSQL("DROP TABLE IF EXISTS programs");
+            db.execSQL("DROP TABLE IF EXISTS payments");
             onCreate(db);
         }
     }
@@ -97,11 +118,12 @@ public class DBAdapter {
     {
         DBHelper.close();
     }
-    //---insert a contact into the database---
+
+    //---insert a student into the database---
     public long insertStudent(String username, String firstName, String lastName, String city, String password)
     {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_USERNAME, username);
+        initialValues.put(PK_USERNAME, username);
         initialValues.put(KEY_FIRST_NAME, firstName);
         initialValues.put(KEY_LAST_NAME, lastName);
         initialValues.put(KEY_CITY, city);
@@ -109,13 +131,13 @@ public class DBAdapter {
         return db.insert(STUDENT_TABLE, null, initialValues);
     }
 
-    //---retrieves a particular contact---
+    //---retrieves a particular student---
     public Cursor getStudent(long id_username) throws SQLException
     {
         Cursor mCursor =
-                db.query(true, STUDENT_TABLE, new String[] {KEY_USERNAME,
+                db.query(true, STUDENT_TABLE, new String[] {PK_USERNAME,
                                 KEY_FIRST_NAME, KEY_LAST_NAME, KEY_CITY},
-                        KEY_USERNAME + "=" + id_username, null,
+                        PK_USERNAME + "=" + id_username, null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -127,7 +149,7 @@ public class DBAdapter {
     {
         Cursor mCursor =
                 db.query(true, STUDENT_TABLE, new String[] {KEY_PASSWORD},
-                        KEY_USERNAME + "=" + id_username, null,
+                        PK_USERNAME + "=" + id_username, null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -142,4 +164,7 @@ public class DBAdapter {
         args.put(KEY_EMAIL, email);
         return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }*/
+
+
+
 }
