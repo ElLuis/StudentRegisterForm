@@ -21,7 +21,7 @@ public class Student {
 
     private int counter = 0;
 
-    private ArrayList<Student> students;
+    private String[] students;
 
     //Properties
     public void setFirstName(String value)
@@ -86,22 +86,14 @@ public class Student {
         passwords[counter] = password;
     }
 
-    public void AddStudent(Student newStudent)
-    {
-        students = new ArrayList<Student>() {
 
-        };
-
-        students.add(newStudent);
-        }
-
-    public Student getAllStudents() {
-        for (Student s : students
+/*    public Student getAllStudents() {
+        for (String s : students
                 ) {
             return s;
         }
         return null;
-    }
+    }*/
 
     //Find username and passwords
     public String[] FindUsername() {

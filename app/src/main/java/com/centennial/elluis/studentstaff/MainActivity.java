@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void studentBtn_OnClick(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, StudentLoginActivity.class);
         startActivity(intent);
     }
 

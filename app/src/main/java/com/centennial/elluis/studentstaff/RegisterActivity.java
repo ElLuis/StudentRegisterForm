@@ -1,5 +1,6 @@
 package com.centennial.elluis.studentstaff;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +11,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText fName;
     private EditText lName;
-    private EditText dob;
+    private EditText city;
     private EditText username;
     private EditText password;
-
-    private EditText[] editTexts = {fName,lName,dob,username,password};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
         //initializing EditTexts
         fName = findViewById(R.id.firstNameET);
         lName = findViewById(R.id.lastNameET);
-        dob = findViewById(R.id.dobET);
+        city = findViewById(R.id.dobET);
         username = findViewById(R.id.usernameET);
         password = findViewById(R.id.passwordET);
 
@@ -35,20 +34,28 @@ public class RegisterActivity extends AppCompatActivity {
         //create instance
         String _fname = fName.getText().toString();
         String _lname = lName.getText().toString();
-        String _dob = dob.getText().toString();
+        String _city = city.getText().toString();
         String _username = username.getText().toString();
         String _password = password.getText().toString();
 
         //add student after registering;
-        Student student = new Student(_fname,_lname,_dob,_username,_password);
-        student.AddStudent(student);
+
+        //Go to login activity after registering
+        //pass result back to login
+        getIntent().putExtra("fname_key",_fname);
+        getIntent().putExtra("lname_key",_lname);
+        getIntent().putExtra("dob_key",_city);
+        getIntent().putExtra("username_key",_username);
+        getIntent().putExtra("password_key",_password);
+        setResult(RESULT_OK,getIntent());
+        finish();
     }
 
     public void cancelBtn_OnClick(View view) {
         //reset fields
         fName.setText("");
         lName.setText("");
-        dob.setText("");
+        city.setText("");
         username.setText("");
         password.setText("");
 

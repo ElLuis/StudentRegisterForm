@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/dobTV"
             style="@style/textViewStyle"
-            android:text="Date of Birth:"
+            android:text="City:"
             app:layout_constraintStart_toStartOf="parent" />
         <TextView
             android:id="@+id/usernameTV"
@@ -88,11 +88,11 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/dobET"
+            android:id="@+id/cityET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="date" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/usernameET"

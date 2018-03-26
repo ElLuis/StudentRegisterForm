@@ -17,26 +17,32 @@ import java.util.Objects;
 
 public class StudentLoginActivity extends AppCompatActivity {
 
+    private static final int REGISTER_REQUEST = 1001;
     private EditText usernameET;
     private EditText passwordET;
     private Button loginBtn;
-    private String[] studentUsernames;
-    private String[] studentPasswords;
+    private ArrayList<String> studentUsernames;
+    private ArrayList<String> studentPasswords;
     private static final String STUDENT_USERNAME_PREFS = "student_username_prefs";
+
+    private String firstname;
+    private String lastname;
+    private String city;
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
-        usernameET = findViewById(R.id.usernameET);
-        passwordET = findViewById(R.id.passwordTV);
+        usernameET = findViewById(R.id.usernameET1);
+        passwordET = findViewById(R.id.passwordET1);
         loginBtn = findViewById(R.id.loginBtn);
 
-        Student student = new Student();
 
         //Find passwords and usernames
-        studentUsernames = student.FindUsername();
-        studentPasswords = student.FindPasswords();
+        studentUsernames = new ArrayList<>();
+        studentPasswords = new ArrayList<>();
 
         //retrieving username from shared preferences
         SharedPreferences prefs =
@@ -54,14 +60,13 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void loginBtn_OnClick(View view) {
-
-        String _username = usernameET.getText().toString();
+       String _username = usernameET.getText().toString();
         String _password = passwordET.getText().toString();
 
         if(validate(_username,_password))
         {
             SharedPreferences.Editor editor =
-                    getSharedPreferences("student_username_prefs", MODE_PRIVATE).edit();
+                    getSharedPreferences(STUDENT_USERNAME_PREFS, MODE_PRIVATE).edit();
             editor.putString("username_key",_username);
             editor.apply();
 
@@ -77,20 +82,36 @@ public class StudentLoginActivity extends AppCompatActivity {
         }
 
     }
+    //validate credentials
     public boolean validate(String username, String password)
     {
-        for (int i = 0; i < studentUsernames.length;i++)
+        for(int i = 0; i < studentUsernames.size();i++)
         {
-            if(Objects.equals(studentUsernames[i], username) && Objects.equals(studentPasswords[i], password))
-            {
+            if (studentUsernames.contains(username) && studentPasswords.contains(password))
                 return true;
-            }
         }
         return false;
     }
 
     public void NotRegistered_OnClick(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,REGISTER_REQUEST);
+    }
+
+    //receive registration credentials
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK && requestCode == REGISTER_REQUEST)
+        {
+            firstname = data.getStringExtra("fname_key");
+            lastname = data.getStringExtra("lname_key");
+            city = data.getStringExtra("city_key");
+            username = data.getStringExtra("username_key");
+            password = data.getStringExtra("password_key");
+
+            studentUsernames.add(username);
+            studentPasswords.add(password);
+        }
     }
 }

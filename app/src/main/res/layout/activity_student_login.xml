@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/studenticon" />
 
     <EditText
-        android:id="@+id/usernameTV"
+        android:id="@+id/usernameET1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -32,7 +32,7 @@
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/passwordTV"
+        android:id="@+id/passwordET1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
