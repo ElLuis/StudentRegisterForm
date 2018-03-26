@@ -16,6 +16,10 @@ public class Student {
     private String dob;
     private String username;
     private String password;
+    private String[] usernames;
+    private String[]passwords;
+
+    private int counter = 0;
 
     private ArrayList<Student> students;
 
@@ -61,6 +65,10 @@ public class Student {
         return password;
     }
 
+    //parameterless constructor
+    public Student()
+    {}
+
     //constructor
     public Student(String firstName, String lastName, String dateOfBirth, String username, String password)
     {
@@ -69,6 +77,13 @@ public class Student {
         this.dob = dateOfBirth;
         this.username = username;
         this.password = password;
+
+        //increase counter
+        counter++;
+
+        //Save username and passwords
+        usernames[counter] = username;
+        passwords[counter] = password;
     }
 
     public void AddStudent(Student newStudent)
@@ -88,6 +103,15 @@ public class Student {
         return null;
     }
 
+    //Find username and passwords
+    public String[] FindUsername() {
+        return usernames;
     }
+
+        public String[] FindPasswords()
+    {
+        return passwords;
+    }
+ }
 
 

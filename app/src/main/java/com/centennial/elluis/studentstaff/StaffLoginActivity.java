@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class StaffLoginActivity extends AppCompatActivity {
 
-    private static final String MY_GLOBAL_PREFS = "my_global_prefs";
+    private static final String staff_username_prefs = "staff_username_prefs";
     private EditText emailET;
     private EditText passwordET;
     private Button loginBtn;
@@ -33,7 +33,7 @@ public class StaffLoginActivity extends AppCompatActivity {
 
         //retrieving email from shared preferences
         SharedPreferences prefs =
-                getSharedPreferences(MY_GLOBAL_PREFS,MODE_PRIVATE);
+                getSharedPreferences(staff_username_prefs,MODE_PRIVATE);
 
         String email = prefs.getString("email_key","");
         if(!TextUtils.isEmpty(email))
@@ -42,8 +42,8 @@ public class StaffLoginActivity extends AppCompatActivity {
     }
 
     public void cancelBtn_OnClick(View view) {
-        emailET.setText(null);
-        passwordET.setText(null);
+        emailET.setText("");
+        passwordET.setText("");
     }
 
     public void loginBtn_OnClick(View view) {
@@ -54,7 +54,7 @@ public class StaffLoginActivity extends AppCompatActivity {
         if(validate(_email,_password))
         {
             SharedPreferences.Editor editor =
-                    getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
+                    getSharedPreferences(staff_username_prefs, MODE_PRIVATE).edit();
             editor.putString("email_key",_email);
             editor.apply();
 
@@ -65,12 +65,14 @@ public class StaffLoginActivity extends AppCompatActivity {
         {
             //throw error
             Toast.makeText(this, "invalid", Toast.LENGTH_SHORT).show();
+            passwordET.setFocusable(true);
+            passwordET.setError("Password and/or username is wrong...");
         }
 
     }
     public boolean validate(String email, String password)
     {
-        for (int i = 0; i <= staffEmails.length;i++)
+        for (int i = 0; i < staffEmails.length;i++)
         {
                 if(Objects.equals(staffEmails[i], email) && Objects.equals(staffPasswords[i], password))
                 {

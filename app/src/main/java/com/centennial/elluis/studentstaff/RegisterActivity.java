@@ -1,5 +1,6 @@
 package com.centennial.elluis.studentstaff;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,18 +38,19 @@ public class RegisterActivity extends AppCompatActivity {
         String _dob = dob.getText().toString();
         String _username = username.getText().toString();
         String _password = password.getText().toString();
+
         //add student after registering;
         Student student = new Student(_fname,_lname,_dob,_username,_password);
         student.AddStudent(student);
     }
 
     public void cancelBtn_OnClick(View view) {
-
-        //reset EditTexts
-        for (EditText et:editTexts
-             ) {
-            et.setText("");
-        }
+        //reset fields
+        fName.setText("");
+        lName.setText("");
+        dob.setText("");
+        username.setText("");
+        password.setText("");
 
     }
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#466ae168"
+    android:backgroundTintMode="src_over"
+    android:orientation="vertical"
+    android:paddingStart="40dp"
+    android:paddingTop="100dp"
+    tools:context="com.centennial.elluis.studentstaff.StudentLoginActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription='"student icon"'
+        android:cropToPadding="false"
+        app:srcCompat="@drawable/studenticon" />
+
+    <EditText
+        android:id="@+id/usernameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/passwordTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/linkToRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:onClick="NotRegistered_OnClick"
+        android:text="Not registered yet?"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ButtonsLayout"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/loginBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="loginBtn_OnClick"
+            android:layout_marginEnd="20dp"
+            android:text="Login"
+            android:textColorLink="@android:color/darker_gray" />
+        <Button
+            android:id="@+id/cancelBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cancelBtn_OnClick"
+            android:text="Cancel"
+            android:textColorLink="@android:color/darker_gray" />
+    </LinearLayout>
+
+</LinearLayout>

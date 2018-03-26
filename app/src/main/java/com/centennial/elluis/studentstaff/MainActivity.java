@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void studentBtn_OnClick(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     public void staffBtn_OnClick(View view) {
