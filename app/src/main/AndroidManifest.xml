@@ -23,7 +23,10 @@
         </activity>
         <activity android:name=".StaffLoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".StudentLoginActivity"></activity>
+        <activity android:name=".StudentLoginActivity" />
+        <activity android:name=".ProgramActivity" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".StudentActivity"></activity>
     </application>
 
 </manifest>

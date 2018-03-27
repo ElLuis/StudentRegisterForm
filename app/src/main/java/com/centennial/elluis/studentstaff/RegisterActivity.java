@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.centennial.elluis.studentstaff.database.DataSource;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText fName;
@@ -14,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText city;
     private EditText username;
     private EditText password;
-    private DBAdapter db;
+    private DataSource db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordET);
 
         //initialize Database adapter
-        db = new DBAdapter(this);
+        db = new DataSource(this);
 
     }
 

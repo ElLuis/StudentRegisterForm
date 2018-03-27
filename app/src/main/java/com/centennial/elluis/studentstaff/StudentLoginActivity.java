@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.centennial.elluis.studentstaff.R;
+import com.centennial.elluis.studentstaff.database.DataSource;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -21,17 +22,9 @@ public class StudentLoginActivity extends AppCompatActivity {
     private EditText usernameET;
     private EditText passwordET;
     private Button loginBtn;
-    private ArrayList<String> studentUsernames;
-    private ArrayList<String> studentPasswords;
     private static final String STUDENT_USERNAME_PREFS = "student_username_prefs";
 
-    private String firstname;
-    private String lastname;
-    private String city;
-    private String username;
-    private String password;
-
-    private DBAdapter db;
+    private DataSource db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +34,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordET1);
         loginBtn = findViewById(R.id.loginBtn);
 
-        db = new DBAdapter(this);
-
-
-        //Find passwords and usernames
-        studentUsernames = new ArrayList<>();
-        studentPasswords = new ArrayList<>();
+        db = new DataSource(this);
 
         //retrieving username from shared preferences
         SharedPreferences prefs =
@@ -76,6 +64,9 @@ public class StudentLoginActivity extends AppCompatActivity {
 
             //view student activity
             Toast.makeText(this, "valid", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,ProgramActivity.class);
+            intent.putExtra("username",_username);
+            startActivity(intent);
         }
         else
         {
@@ -87,11 +78,15 @@ public class StudentLoginActivity extends AppCompatActivity {
 
     }
     //validate credentials
-    public boolean validate(String username, String password)
-    {
+    public boolean validate(String username, String password) {
         db.open();
-        Cursor c = db.validateStudentPassword(Long.parseLong(username));
-        return c.getString(0).equals(password);
+        Cursor c = db.validateStudentPassword(Integer.parseInt(username));
+        db.close();
+        if (c.moveToFirst())
+        {
+            return c.getString(0).equals(password);
+        }
+        return false;
     }
 
     public void NotRegistered_OnClick(View view) {
