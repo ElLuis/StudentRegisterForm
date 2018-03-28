@@ -1,5 +1,6 @@
 package com.centennial.elluis.studentstaff;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,5 +77,10 @@ public class StudentActivity extends AppCompatActivity {
             displayText.setText(paymentInfo);
         }
         db.close();
+    }
+
+    public void goBackBtn(View view) {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }

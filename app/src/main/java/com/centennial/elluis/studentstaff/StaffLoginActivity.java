@@ -1,5 +1,6 @@
 package com.centennial.elluis.studentstaff;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,6 +61,8 @@ public class StaffLoginActivity extends AppCompatActivity {
 
             //view staff activity
             Toast.makeText(this, "valid", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,StaffActivity.class);
+            startActivity(intent);
         }
         else
         {
