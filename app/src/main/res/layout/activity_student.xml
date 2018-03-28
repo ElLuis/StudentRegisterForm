@@ -4,6 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
     tools:context=".StudentActivity">
 
+    <TextView
+        android:id="@+id/welcomeStudent"
+        style="@style/infoStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="40dp"
+        android:paddingTop="10dp"
+        android:text="Welcome to your Page"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/viewBtnsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeStudent">
+
+        <Button
+            android:id="@+id/personalInfoBtn"
+            style="@style/studentInfoStyle"
+            android:onClick="personalInfo_OnClick"
+            android:text="My Info" />
+
+        <Button
+            android:id="@+id/programInfoBtn"
+            style="@style/studentInfoStyle"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:onClick="programInfo_OnClick"
+            android:text="My Program" />
+
+        <Button
+            android:id="@+id/paymentInfoBtn"
+            style="@style/studentInfoStyle"
+            android:onClick="paymentInfo_OnClick"
+            android:text="My Payment" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/displayInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border_background"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBtnsLayout">
+
+        <TextView
+            android:id="@+id/displayInfoTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

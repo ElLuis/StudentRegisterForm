@@ -64,8 +64,8 @@ public class StudentLoginActivity extends AppCompatActivity {
 
             //view student activity
             Toast.makeText(this, "valid", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this,ProgramActivity.class);
-            intent.putExtra("username",_username);
+            Intent intent = new Intent(this,StudentActivity.class);
+            intent.putExtra("username",Integer.parseInt(_username));
             startActivity(intent);
         }
         else

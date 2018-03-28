@@ -48,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
         db.insertStudent(_username,_fname,_lname,_city,_password);
         db.close();
 
-        Intent intent = new Intent(this, StudentLoginActivity.class);
+        Intent intent = new Intent(this, ProgramActivity.class);
+        intent.putExtra("username",_username);
         startActivity(intent);
         //pass username to Student page
     }

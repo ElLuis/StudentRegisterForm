@@ -45,7 +45,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         //Change balance
         String newBalance = String.valueOf(getBalance());
-        balance.setText("Balance: $"+newBalance);
+        balance.setText(newBalance);
     }
 
     public void cancelPayBtn_OnClick(View view) {
@@ -63,6 +63,9 @@ public class PaymentActivity extends AppCompatActivity {
         db.updatePaymentBalance(username,amountPaid,_balance);
         db.close();
 
+        Intent intent = new Intent(this,StudentActivity.class);
+        intent.putExtra("username",username);
+        startActivity(intent);
     }
 
     public void setTotalAmount()
