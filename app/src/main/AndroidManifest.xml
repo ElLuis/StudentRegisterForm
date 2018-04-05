@@ -27,7 +27,9 @@
         <activity android:name=".ProgramActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".StudentActivity" />
-        <activity android:name=".StaffActivity"></activity>
+        <activity android:name=".StaffActivity" />
+        <activity android:name=".ChangeProgramActivity" />
+        <activity android:name=".ChangePaymentActivity"></activity>
     </application>
 
 </manifest>

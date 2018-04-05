@@ -17,6 +17,7 @@ public class DataSource {
     static final String STUDENT_TABLE = "students";
     static final String PROGRAM_TABLE = "programs";
     static final String PAYMENT_TABLE = "payments";
+    static final String STAFF_TABLE = "staff";
 
     public DataSource(Context context)
     {
@@ -121,9 +122,9 @@ public class DataSource {
     }
 
 
+
     /*                                                 PAYMENTS                                                                             */
 
-    //---insert a student into the database---
     public long insertProgramTotalAmount(int username,int programCode, int totalAmount)
     {
         ContentValues initialValues = new ContentValues();
@@ -133,6 +134,17 @@ public class DataSource {
         initialValues.put(paymentTable.KEY_BALANCE, totalAmount);
         return mDatabase.insert(PAYMENT_TABLE, null, initialValues);
     }
+
+    //update program total amount
+    public boolean updateProgramTotalAmount(int username, int programCode, int totalAmount)
+    {
+        ContentValues args = new ContentValues();
+        args.put(paymentTable.FK_PROGRAM_CODE$, programCode);
+        args.put(paymentTable.KEY_TOTAL_AMOUNT_, totalAmount);
+        args.put(paymentTable.KEY_BALANCE, totalAmount);
+        return mDatabase.update(PAYMENT_TABLE, args, paymentTable.FK_STUDENT_ID$ + "=" + username, null) > 0;
+    }
+
 
     //---Update Payment---
     public boolean updatePaymentBalance(int username, int amountPaid, int balance)
@@ -172,6 +184,30 @@ public class DataSource {
         return mCursor;
     }
 
+    //update payment status
+    public boolean updatePaymentStatus(int username, String status)
+    {
+        ContentValues args = new ContentValues();
+        args.put(paymentTable.KEY_STATUS, status);
+        return mDatabase.update(PAYMENT_TABLE, args, paymentTable.FK_STUDENT_ID$ + "=" + username, null) > 0;
+    }
 
+
+
+/*                                                                                  STAFF                                   */
+
+
+
+    public Cursor validateStaffPassword(String id_username) throws SQLException
+    {
+        Cursor mCursor =
+                mDatabase.query(true, STAFF_TABLE, new String[] {staffTable.KEY_PASSWORD},
+                        staffTable.PK_USERNAME + "=" + "'"+id_username+"'", null,
+                        null, null, null, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
 
 }

@@ -10,7 +10,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Database constants
     public static final String DATABASE_NAME = "studentDB";
-    static final int DATABASE_VERSION = 8; //upgrade database
+    static final int DATABASE_VERSION = 11; //upgrade database
     static final String TAG = "DBHelper";
 
     public DBHelper(Context context) {
@@ -27,6 +27,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(programTable.CREATE_PROGRAM_3);
         //Create Payment Table
         db.execSQL(paymentTable.DATABASE_CREATE_PAYMENTS);
+        //Create Staff Table
+        db.execSQL(staffTable.DATABASE_CREATE_STAFF);
+        //insert staff
+        db.execSQL(staffTable.CREATE_STAFF1);
+        db.execSQL(staffTable.CREATE_STAFF2);
+        db.execSQL(staffTable.CREATE_STAFF3);
     }
 
     @Override
@@ -36,6 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS students");
         db.execSQL("DROP TABLE IF EXISTS programs");
         db.execSQL("DROP TABLE IF EXISTS payments");
+        db.execSQL("DROP TABLE IF EXISTS staff");
         onCreate(db);
     }
 }

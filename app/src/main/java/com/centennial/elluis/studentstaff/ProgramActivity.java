@@ -90,6 +90,7 @@ public class ProgramActivity extends AppCompatActivity {
     {
         db.open();
         Cursor c = db.getProgram(programCode);
+        db.close();
         if (c.moveToFirst())
         {
             programInfoTV.setText(String.format("Program code: %s\nTuition Fee: $%d\nDuration: %d\nSemesters: %d", c.getString(1), c.getInt(2), c.getInt(3), c.getInt(4)));
@@ -99,7 +100,7 @@ public class ProgramActivity extends AppCompatActivity {
     //get Tuition Fee
     public int getTuitionFee(int programCode)
     {
-        db.open();
+        //db.open();
         Cursor c = db.getProgramTuitionFee(programCode);
         if(c.moveToFirst())
         {
@@ -112,6 +113,7 @@ public class ProgramActivity extends AppCompatActivity {
     {
         db.open();
         long c = db.insertProgramTotalAmount(username,programCode,getTuitionFee(programCode));
+        db.close();
     }
 
     public void registerBtn_OnClick(View view) {

@@ -1,5 +1,6 @@
 package com.centennial.elluis.studentstaff;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -81,6 +82,16 @@ public class StudentActivity extends AppCompatActivity {
 
     public void goBackBtn(View view) {
         Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void changeProgramBtn_OnClick(View view) {
+        db.open();
+        db.updatePaymentStatus(username,"In-progress");
+        db.close();
+        Intent intent = new Intent(this,ChangeProgramActivity.class);
+        intent.putExtra("username",username);
+        //update status
         startActivity(intent);
     }
 }

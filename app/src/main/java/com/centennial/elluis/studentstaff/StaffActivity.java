@@ -19,7 +19,7 @@ public class StaffActivity extends AppCompatActivity {
     private int username;
     private DataSource db;
     private ListAdapter adapter;
-    private ArrayList<Integer> studentsArray;
+    private ArrayList<Integer > studentsArray;
     private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

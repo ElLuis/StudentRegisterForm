@@ -2,6 +2,7 @@ package com.centennial.elluis.studentstaff;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.centennial.elluis.studentstaff.database.DataSource;
 
 import java.util.Objects;
 
@@ -18,19 +21,17 @@ public class StaffLoginActivity extends AppCompatActivity {
     private EditText emailET;
     private EditText passwordET;
     private Button loginBtn;
-    private String[] staffEmails;
-    private String[] staffPasswords;
+    private DataSource db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_login);
 
+        db = new DataSource(this);
         emailET = findViewById(R.id.emailTV);
         passwordET = findViewById(R.id.passwordTV);
         loginBtn = findViewById(R.id.loginBtn);
-        staffEmails = getResources().getStringArray(R.array.staffEmails);
-        staffPasswords = getResources().getStringArray(R.array.staffPasswords);
 
         //retrieving email from shared preferences
         SharedPreferences prefs =
@@ -73,15 +74,16 @@ public class StaffLoginActivity extends AppCompatActivity {
         }
 
     }
-    public boolean validate(String email, String password)
+    public boolean validate(String username, String password)
     {
-        for (int i = 0; i < staffEmails.length;i++)
+        db.open();
+        Cursor c = db.validateStaffPassword(username);
+        db.close();
+        if (c.moveToFirst())
         {
-                if(Objects.equals(staffEmails[i], email) && Objects.equals(staffPasswords[i], password))
-                {
-                    return true;
-                }
-            }
+            return c.getString(0).equals(password);
+        }
         return false;
     }
-}
+    }
+
