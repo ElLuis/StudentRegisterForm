@@ -37,7 +37,6 @@
             android:id="@+id/firstnameTV"
             android:text="First Name:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcomeTV"
             style="@style/textViewStyle" />
 
         <TextView

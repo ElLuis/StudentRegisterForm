@@ -2,6 +2,7 @@
     <string name="app_name">StudentStaff</string>
     <string name="title_activity_staff_login">Sign in</string>
     <string name="welcome">Welcome !</string>
+    <string name="staff">Staff</string>
 
     <string-array name="staffEmails">
         <item>vvaithi3@my.centennialcollege.ca</item>
